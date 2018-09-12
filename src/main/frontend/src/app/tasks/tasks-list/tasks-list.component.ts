@@ -22,6 +22,13 @@ export class TasksListComponent implements OnInit {
                 },
                 (error) => console.log(error)
             );
+
+        this.taskService.onTaskAdded.subscribe(
+            (task: Task) => {
+                this.tasks.push(task)
+            },
+            (error) => console.log(error)
+        );
     }
 
     getDueDateLabel(task: Task) {
@@ -29,6 +36,6 @@ export class TasksListComponent implements OnInit {
     }
 
     onTaskChange(event, task) {
-        console.log("Task has changed");
+        this.taskService.saveTask(task, event.target.checked).subscribe();
     }
 }
